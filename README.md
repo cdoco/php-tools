@@ -1,3 +1,1 @@
-<div align=center>
-![](https://cdoco.com/images/php-tools.png)
-</div>
+<div align=center><img src="https://cdoco.com/images/php-tools.png" alt="PHP Tools"/></div>
