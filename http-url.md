@@ -40,7 +40,7 @@ $cleanall|是否清除所有|boolean|true
 $url|跳转地址|sting
 
 ```php
-public static function cleanUrl($url, $cleanall = true) {
+public function cleanUrl($url, $cleanall = true) {
     if (strpos($url, 'http://') !== false) {
         if ($cleanall) {
             return '/';
@@ -56,15 +56,15 @@ public static function cleanUrl($url, $cleanall = true) {
 
 参数|注释|类型|默认值
 -|-|-|-
-$http|-|boolean|false
-$entities|-|boolean|false
+$http|是否返回http协议|boolean|false
+$entities|是否转义|boolean|false
 
 返回值|注释|类型
 -|-|-
 $host|当前域名|sting
 
 ```php
-public static function getHttpHost($http = false, $entities = false) {
+public function getHttpHost($http = false, $entities = false) {
     $host = (isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : $_SERVER['HTTP_HOST']);
 
     if ($entities) {
@@ -72,9 +72,47 @@ public static function getHttpHost($http = false, $entities = false) {
     }
 
     if ($http) {
-        $host = self::getCurrentUrlProtocolPrefix() . $host;
+        //这个方法在下文 getCurrentUrlProtocolPrefix
+        $host = getCurrentUrlProtocolPrefix() . $host;
     }
 
     return $host;
+}
+```
+
+## 获取当前URL协议
+
+返回值|注释|类型
+-|-|-
+-|http协议(https://\|http://)|sting
+
+```php
+public function getCurrentUrlProtocolPrefix() {
+    //这个方法在下文 usingSecureMode
+    if (usingSecureMode()) {
+        return 'https://';
+    } else {
+        return 'http://';
+    }
+}
+```
+
+## 判断是否使用了HTTPS
+
+返回值|注释|类型
+-|-|-
+-|是否使用了HTTPS|boolean
+
+```php
+public static function usingSecureMode() {
+    if (isset($_SERVER['HTTPS'])) {
+        return ($_SERVER['HTTPS'] == 1 || strtolower($_SERVER['HTTPS']) == 'on');
+    }
+
+    if (isset($_SERVER['SSL'])) {
+        return ($_SERVER['SSL'] == 1 || strtolower($_SERVER['SSL']) == 'on');
+    }
+
+    return false;
 }
 ```
