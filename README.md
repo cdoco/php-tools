@@ -6,5 +6,5 @@
   - [跳转重定向](http-url.md#跳转重定向)
   - [清理URL中的 http 头信息](http-url.md#清理url中的-http-头信息)
   - [获取当前域名](http-url.md#获取当前域名)
-  - [获取当前URL协议](http-url.md#获取当前URL协议)
-  - [判断是否使用了HTTPS](http-url.md#判断是否使用了HTTPS)
+  - [获取当前URL协议](http-url.md#获取当前url协议)
+  - [判断是否使用了HTTPS](http-url.md#判断是否使用了https)
